@@ -23,19 +23,16 @@ public class AdminService {
     @Transactional
     public Admin registerAdmin(Admin admin) {
         try {
-            Admin savedAdmin = adminRepository.save(admin); // Save and return the saved entity
+            Admin savedAdmin = adminRepository.save(admin);
             logger.info("Admin registered successfully: {}", savedAdmin.getUsername());
             return savedAdmin;
         } catch (Exception e) {
             logger.error("Error during registration", e);
-            throw e;  // Rethrow to ensure the transaction is rolled back if needed
+            throw e;
         }
     }
 
-    //public boolean loginAdmin(String username, String password) {
-       // Optional<Admin> admin = adminRepository.findByUsername(username);
-       // return admin.isPresent() && admin.get().getPassword().equals(password);
-    //}
+
     public boolean loginAdmin(String username, String password) {
         Optional<Admin> optionalAdmin = adminRepository.findByUsername(username);
 

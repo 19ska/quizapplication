@@ -18,18 +18,18 @@ public class QuestionService {
     @Autowired
     private QuizRepository quizRepository;
 
-    // Add a question to a quiz
+
     public Question addQuestionToQuiz(Long quizId, Question question) {
         Quiz quiz = quizRepository.findById(quizId).orElse(null);
         if (quiz != null) {
-            question.setQuiz(quiz); // Set the quiz for the question
+            question.setQuiz(quiz);
             return questionRepository.save(question);
         } else {
-            return null; // Quiz not found
+            return null;
         }
     }
 
-    // Get questions by quiz ID
+
     public List<Question> getQuestionsByQuizId(Long quizId) {
         return questionRepository.findByQuizId(quizId);
     }

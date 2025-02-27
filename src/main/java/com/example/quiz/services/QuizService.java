@@ -13,17 +13,17 @@ public class QuizService {
     @Autowired
     private QuizRepository quizRepository;
 
-    // Create a new quiz
+
     public Quiz createQuiz(Quiz quiz) {
         return quizRepository.save(quiz);
     }
 
-    // Get all quizzes
+
     public List<Quiz> getAllQuizzes() {
         return quizRepository.findAll();
     }
 
-    // Get quiz by ID
+
     public Quiz getQuizById(Long quizId) {
         return quizRepository.findById(quizId).orElse(null);
     }

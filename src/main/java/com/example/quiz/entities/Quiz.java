@@ -22,7 +22,7 @@ public class Quiz {
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Question> questions; // A Quiz can have many Questions
+    private List<Question> questions; // Quiz can have many Questions
 
 
 
