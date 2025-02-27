@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Quiz</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      width: 80%;
+      max-width: 900px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      font-size: 16px;
+      margin-bottom: 5px;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .error-message {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Create New Quiz</h2>
+  <form id="createQuizForm">
+    <label for="quizTitle">Quiz Title:</label>
+    <input type="text" id="quizTitle" name="quizTitle" required>
+
+    <label for="quizDescription">Description:</label>
+    <input type="text" id="quizDescription" name="quizDescription" required>
+
+    <button type="submit">Create Quiz</button>
+  </form>
+  <div class="error-message" id="quiz-error-message"></div>
+</div>
+
+<script>
+  // Handle Quiz Creation
+  document.getElementById("createQuizForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const quizTitle = document.getElementById("quizTitle").value;
+    const quizDescription = document.getElementById("quizDescription").value;
+
+    // Send the quiz data to the backend API
+    fetch("http://localhost:9092/api/quiz/create", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ title: quizTitle, description: quizDescription })
+    })
+    .then(response => {
+      if (response.ok) {
+        return response.json(); // Assuming the response contains the quizId
+      } else {
+        throw new Error("Failed to create quiz");
+      }
+    })
+    .then(data => {
+      const quizId = data.id; // Assuming the response contains the quizId
+      localStorage.setItem("quizId", quizId); // Store quizId in localStorage
+
+      alert("Quiz created successfully!");
+      window.location.href = `quizDetail.html?quizId=${quizId}`; // Redirect to quiz details page with quizId
+    })
+    .catch(error => {
+      document.getElementById("quiz-error-message").textContent = "Error: " + error.message;
+    });
+  });
+</script>
+
+</body>
+</html>

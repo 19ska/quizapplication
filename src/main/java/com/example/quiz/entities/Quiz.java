@@ -1,12 +1,12 @@
 package com.example.quiz.entities;
 
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Data
-@Getter
-@Setter
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -17,9 +17,13 @@ public class Quiz {
     private Long id;
 
     private String title;
+
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "admin_id")
-    private Admin admin; // An Admin can create many quizzes
+    @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Question> questions; // A Quiz can have many Questions
+
+
+
 }

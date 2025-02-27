@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quiz Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      width: 80%;
+      max-width: 900px;
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .error-message {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Quiz Details</h2>
+  <button id="addQuestionBtn">Add Question</button>
+  <button id="viewQuestionsBtn">View All Questions</button>
+  <div class="error-message" id="quiz-error-message"></div>
+</div>
+
+<script>
+  // Get quizId from URL query string
+  const urlParams = new URLSearchParams(window.location.search);
+  const quizId = urlParams.get('quizId'); // Extract quizId from URL
+
+  if (!quizId) {
+    document.getElementById("quiz-error-message").textContent = "Quiz ID is missing.";
+    console.log("Quiz ID is missing. Stopping execution.");
+  } else {
+    console.log("Quiz ID: ", quizId); // Log the quizId for debugging
+
+    // Add Question button functionality
+    document.getElementById("addQuestionBtn").addEventListener("click", function() {
+      console.log("Add Question button clicked"); // Log when the button is clicked
+      window.location.href = `addQuestion.html?quizId=${quizId}`; // Redirect to addQuestion page with quizId
+    });
+
+    // View All Questions button functionality
+    document.getElementById("viewQuestionsBtn").addEventListener("click", function() {
+      console.log("View Questions button clicked"); // Log when the button is clicked
+      window.location.href = `viewQuestions.html?quizId=${quizId}`; // Redirect to viewQuestions page with quizId
+    });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Questions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 900px;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #4CAF50;
+      margin-bottom: 30px;
+    }
+
+    .question-block {
+      background-color: #fafafa;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      padding: 20px;
+      border-left: 5px solid #4CAF50; /* Green left border for each question */
+    }
+
+    .question-block h3 {
+      margin-top: 0;
+      color: #333;
+      font-size: 20px;
+    }
+
+    .question-block ul {
+      padding-left: 20px;
+    }
+
+    .question-block ul li {
+      color: #555;
+      font-size: 16px;
+    }
+
+    .question-block p {
+      color: #333;
+      font-size: 16px;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>View Questions</h2>
+  <div id="questionsList"></div>
+  <div class="error-message" id="view-error-message"></div>
+</div>
+
+<script>
+  // JavaScript code for fetching and displaying questions
+  // Extract quizId from the URL
+const urlParams = new URLSearchParams(window.location.search);
+const quizId = urlParams.get('quizId'); // Get the 'quizId' from the query string
+
+if (!quizId) {
+    document.getElementById("view-error-message").textContent = "Error: Quiz ID is missing in the URL!";
+} else {
+    // Fetch questions for the given quizId
+    fetch(`http://localhost:9092/api/quiz/${quizId}`)
+      .then(response => response.json())
+      .then(data => {
+        const questionsList = document.getElementById("questionsList");
+        if (!data || data.length === 0) {
+          questionsList.innerHTML = "<p>No questions found for this quiz.</p>";
+          return;
+        }
+
+        data.forEach(question => {
+  const questionBlock = document.createElement("div");
+  questionBlock.classList.add("question-block");
+
+  const questionDetails = `
+    <h3>Question ID: ${question.id}</h3>
+    <h3>Question: ${question.quizQuestion}</h3>
+    <p><strong>Options:</strong></p>
+    <ul>
+      ${question.choices.map(choice => `<li>${choice}</li>`).join('')}
+    </ul>
+    <p><strong>Correct Option:</strong> ${question.correctOption}</p>
+  `;
+
+  questionBlock.innerHTML = questionDetails;
+  questionsList.appendChild(questionBlock);
+});
+      })
+      .catch(error => {
+        document.getElementById("view-error-message").textContent = "Error: " + error.message;
+      });
+}
+</script>
+
+</body>
+</html>
