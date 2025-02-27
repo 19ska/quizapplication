@@ -31,10 +31,10 @@ public class AdminController {
         Map<String, String> response = new HashMap<>();
         if (isAuthenticated) {
             response.put("message", "Login successful");
-            return ResponseEntity.ok(response); // Return JSON
+            return ResponseEntity.ok(response);
         } else {
             response.put("message", "Invalid credentials");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response); // Return JSON
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
     }
 

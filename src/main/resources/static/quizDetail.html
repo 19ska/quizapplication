@@ -54,6 +54,8 @@
   <h2>Quiz Details</h2>
   <button id="addQuestionBtn">Add Question</button>
   <button id="viewQuestionsBtn">View All Questions</button>
+  <button onclick="goToUpdateQuestion()">Update Question</button>
+  <button id="deleteQuestionBtn" class="delete-btn">Delete Question</button>
   <div class="error-message" id="quiz-error-message"></div>
 </div>
 
@@ -79,6 +81,14 @@
       console.log("View Questions button clicked"); // Log when the button is clicked
       window.location.href = `viewQuestions.html?quizId=${quizId}`; // Redirect to viewQuestions page with quizId
     });
+
+    document.getElementById("deleteQuestionBtn").addEventListener("click", function() {
+    window.location.href = `deleteQuestion.html?quizId=${quizId}`;
+  });
+
+  function goToUpdateQuestion() {
+        window.location.href = "updateQuestion.html";
+    }
   }
 </script>
 

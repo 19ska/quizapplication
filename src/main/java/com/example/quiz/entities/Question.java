@@ -1,6 +1,7 @@
 package com.example.quiz.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,6 +9,8 @@ import java.util.List;
 
 @Data
 @Entity
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question {
@@ -16,6 +19,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonProperty("question")
     private String quizQuestion;
 
     @ElementCollection
@@ -30,6 +34,13 @@ public class Question {
     @JsonBackReference
     private Quiz quiz; // A Question belongs to a Quiz
 
+    public String getQuizQuestion() {
+        return quizQuestion;
+    }
+
+    public void setQuizQuestion(String quizQuestion) {
+        this.quizQuestion = quizQuestion;
+    }
 
     @Override
     public String toString() {
