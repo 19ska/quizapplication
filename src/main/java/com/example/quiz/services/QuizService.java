@@ -27,4 +27,8 @@ public class QuizService {
     public Quiz getQuizById(Long quizId) {
         return quizRepository.findById(quizId).orElse(null);
     }
+
+    public Quiz findById(Long quizId) {
+        return quizRepository.findById(quizId).orElse(null);
+    }
 }

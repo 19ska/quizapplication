@@ -81,6 +81,8 @@
 <script>
   // JavaScript code for fetching and displaying questions
   // Extract quizId from the URL
+// JavaScript code for fetching and displaying questions
+// Extract quizId from the URL
 const urlParams = new URLSearchParams(window.location.search);
 const quizId = urlParams.get('quizId'); // Get the 'quizId' from the query string
 
@@ -98,17 +100,21 @@ if (!quizId) {
         }
 
         data.forEach(question => {
+  // Access 'question' field directly
+  const questionText = question.question ? question.question : "No question text available";
+  const questionChoices = question.choices ? question.choices : [];
+
   const questionBlock = document.createElement("div");
   questionBlock.classList.add("question-block");
 
   const questionDetails = `
     <h3>Question ID: ${question.id}</h3>
-    <h3>Question: ${question.question}</h3>
+    <h3>Question: ${questionText}</h3>
     <p><strong>Options:</strong></p>
     <ul>
-      ${question.choices.map(choice => `<li>${choice}</li>`).join('')}
+      ${questionChoices.length > 0 ? questionChoices.map(choice => `<li>${choice}</li>`).join('') : "<li>No options available</li>"}
     </ul>
-    <p><strong>Correct Option:</strong> ${question.correctOption}</p>
+    <p><strong>Correct Option:</strong> ${question.correctOption || "No correct option specified"}</p>
   `;
 
   questionBlock.innerHTML = questionDetails;

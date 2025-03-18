@@ -33,10 +33,23 @@ public class QuizController {
     }
 
 
-    @PostMapping("/{quizId}/add-question")
-    public ResponseEntity<Question> addQuestionToQuiz(@PathVariable Long quizId, @RequestBody Question question) {
-        return ResponseEntity.ok(questionService.addQuestionToQuiz(quizId, question));
-    }
+   // @PostMapping("/{quizId}/add-question")
+    //public ResponseEntity<Question> addQuestionToQuiz(@PathVariable Long quizId, @RequestBody Question question) {
+        //return ResponseEntity.ok(questionService.addQuestionToQuiz(quizId, question));
+    //}
+   @PostMapping("/{quizId}/add-question")
+   public ResponseEntity<Question> addQuestionToQuiz(@PathVariable Long quizId, @RequestBody Question question) {
+       try {
+           // Save the question and get the saved object
+           Question savedQuestion = questionService.addQuestionToQuiz(quizId, question);
+
+           // Return the saved question
+           return ResponseEntity.status(HttpStatus.CREATED).body(savedQuestion);
+       } catch (RuntimeException e) {
+           // Handle the error if the quiz is not found
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+       }
+   }
 
 
     @GetMapping("/all")
