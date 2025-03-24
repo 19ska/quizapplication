@@ -3,7 +3,7 @@ version: 2.1
 executors:
   java-executor:
     docker:
-      - image: maven:3.8.6-openjdk-11  # Base image with Maven and OpenJDK 11
+      - image: maven:3.8.6-openjdk-23  # Use OpenJDK 23 (if available)
     working_directory: ~/repo
 
 jobs:
@@ -12,10 +12,8 @@ jobs:
     steps:
       - checkout  # Pulls your repo
       - run:
-          name: Install OpenJDK 17
-          command: |
-            apt-get update && apt-get install -y openjdk-17-jdk
-            java -version  # Verify the installation
+          name: Set JAVA_HOME
+          command: echo "export JAVA_HOME=/usr/lib/jvm/java-23-openjdk" >> $BASH_ENV
       - run:
           name: Build with Maven
           command: mvn clean install
