@@ -3,8 +3,19 @@ version: 2.1
 executors:
   java-executor:
     docker:
-      - image: maven:3.8.6-openjdk-11  # This image already has Maven and OpenJDK
+      - image: maven:3.8.6-openjdk-11  # Base image with Maven and OpenJDK 11
     working_directory: ~/repo
+    steps:
+      - run:
+          name: Install OpenJDK 23
+          command: |
+            apt-get update && apt-get install -y wget
+            wget https://download.java.net/java/early_access/23/binaries/openjdk-23-ea+17_linux-x64_bin.tar.gz
+            tar -xzf openjdk-23-ea+17_linux-x64_bin.tar.gz
+            mv jdk-23 /opt/openjdk-23
+            update-alternatives --install /usr/bin/java java /opt/openjdk-23/bin/java 1
+            update-alternatives --config java
+            java -version  # Verify the installation
 
 jobs:
   build:
