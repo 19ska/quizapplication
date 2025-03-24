@@ -36,7 +36,7 @@ public class QuizControllerTest {
     @InjectMocks
     private QuizController quizController;
 
-    // Test for creating a quiz
+
     @Test
     void testCreateQuiz() {
         Quiz quiz = new Quiz();
@@ -52,7 +52,7 @@ public class QuizControllerTest {
         assertEquals("Sample Quiz", response.getBody().getTitle());
     }
 
-    // Test for adding a question to a quiz
+
     @Test
     void testAddQuestionToQuiz() {
         Long quizId = 1L;
@@ -70,7 +70,7 @@ public class QuizControllerTest {
         assertEquals("What is Spring?", response.getBody().getQuizQuestion());
     }
 
-    // Test for getting all quizzes
+
     @Test
     void testGetAllQuizzes() {
         Quiz quiz1 = new Quiz();
@@ -119,7 +119,7 @@ public class QuizControllerTest {
         assertEquals("Question deleted successfully.", response.getBody());
     }
 
-    // Test for deleting a question (not found case)
+
     @Test
     void testDeleteQuestion_NotFound() {
         Long questionId = 1L;
@@ -132,7 +132,7 @@ public class QuizControllerTest {
         assertEquals("Question not found.", response.getBody());
     }
 
-    // Test for updating a question (success case)
+
     @Test
     void testUpdateQuestion_Success() {
         Long questionId = 1L;
@@ -156,7 +156,7 @@ public class QuizControllerTest {
         assertEquals("B", response.getBody().getCorrectOption());
     }
 
-    // Test for updating a question (not found case)
+
     @Test
     void testUpdateQuestion_NotFound() {
         Long questionId = 1L;
