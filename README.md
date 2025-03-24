@@ -7,7 +7,7 @@ Quiz App Backend
 This is the backend for the Quiz App, built using Spring Boot and MySQL. It provides admin functionalities to manage quizzes and questions via a secure REST API.
 
 🚀 Features
-
+---------------------------------
 ✅ Admin Authentication (Login & Registration)
 ✅ Create, Read, Update, Delete (CRUD) operations for quizzes
 ✅ CRUD operations for questions within a quiz
@@ -19,6 +19,7 @@ This is the backend for the Quiz App, built using Spring Boot and MySQL. It prov
 
 
 Technologies Used:
+---------------------------------
 -Java 17+
 -Spring Boot 3.4.3
 -Spring Data JPA
