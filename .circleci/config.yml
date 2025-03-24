@@ -5,7 +5,12 @@ executors:
     docker:
       - image: maven:3.8.6-openjdk-11  # Base image with Maven and OpenJDK 11
     working_directory: ~/repo
+
+jobs:
+  build:
+    executor: java-executor
     steps:
+      - checkout  # Pulls your repo
       - run:
           name: Install OpenJDK 23
           command: |
@@ -16,12 +21,6 @@ executors:
             update-alternatives --install /usr/bin/java java /opt/openjdk-23/bin/java 1
             update-alternatives --config java
             java -version  # Verify the installation
-
-jobs:
-  build:
-    executor: java-executor
-    steps:
-      - checkout  # Pulls your repo
       - run:
           name: Build with Maven
           command: mvn clean install
