@@ -12,14 +12,9 @@ jobs:
     steps:
       - checkout  # Pulls your repo
       - run:
-          name: Install OpenJDK 23
+          name: Install OpenJDK 17
           command: |
-            apt-get update && apt-get install -y wget
-            wget https://download.java.net/java/early_access/23/binaries/openjdk-23-ea+17_linux-x64_bin.tar.gz
-            tar -xzf openjdk-23-ea+17_linux-x64_bin.tar.gz
-            mv jdk-23 /opt/openjdk-23
-            update-alternatives --install /usr/bin/java java /opt/openjdk-23/bin/java 1
-            update-alternatives --config java
+            apt-get update && apt-get install -y openjdk-17-jdk
             java -version  # Verify the installation
       - run:
           name: Build with Maven
